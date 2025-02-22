@@ -1,15 +1,18 @@
 # Social Media Application
+This project is a simple social media application built with Django.
 
 A simple social media application built with Django by Saim Ahmed Emon (GitHub: emontheprince).
 
-## Features
+## Features 
+This section outlines the main features of the application.
 - User registration and authentication
 - Create, read, update, and delete posts
 - Global feed showing all posts
 - User profile showing only your posts
 - Image upload support for posts
 
-## Setup Instructions
+## Setup Instructions 
+Follow these steps to set up the project locally.
 
 1. Clone the repository:
    ```bash
@@ -45,7 +48,8 @@ A simple social media application built with Django by Saim Ahmed Emon (GitHub: 
 
 7. Access the application at `http://localhost:8000`
 
-## API Endpoints
+## API Endpoints 
+This section lists the available API endpoints for authentication and posts.
 
 ### Authentication
 - POST /login/ - User login
@@ -62,7 +66,8 @@ A simple social media application built with Django by Saim Ahmed Emon (GitHub: 
 ### User Profile
 - GET /profile/ - View user's profile and posts
 
-## Testing Credentials
+## Testing Credentials 
+Use these credentials to log in to the admin account and sample user accounts.
 - Admin account:
   - Username: admin
   - Password: admin
@@ -73,7 +78,8 @@ A simple social media application built with Django by Saim Ahmed Emon (GitHub: 
   - Username: user2
   - Password: testpass123
 
-## ER Diagram (Text Representation)
+## ER Diagram (Text Representation) 
+This section provides a text representation of the database relationships.
 
 ```
 +----------------+            +----------------+
@@ -95,7 +101,8 @@ Relationships:
 - A Post belongs to one User
 ```
 
-## Project Details
+## Project Details 
+Information about the project, including the developer and technology stack.
 - **Developer**: Saim Ahmed Emon
 - **GitHub**: [emontheprince](https://github.com/emontheprince)
 - **Technology Stack**:
@@ -105,5 +112,6 @@ Relationships:
   - Authentication: Django's built-in authentication system
   - Media Handling: Django's FileField and ImageField
 
-## License
+## License 
+This section outlines the licensing information for the project.
 MIT License

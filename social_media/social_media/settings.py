@@ -1,14 +1,14 @@
 from pathlib import Path
 
-BASE_DIR = Path(__file__).resolve().parent.parent
+BASE_DIR = Path(__file__).resolve().parent.parent  # Base directory of the project
 
-SECRET_KEY = 'django-insecure-your-secret-key-here'
+SECRET_KEY = 'django-insecure-your-secret-key-here'  # Secret key for the Django application
 
-DEBUG = True
+DEBUG = True  # Set to False in production
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = []  # List of allowed hosts for the application
 
-INSTALLED_APPS = [
+INSTALLED_APPS = [  # Applications installed in the Django project
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -18,7 +18,7 @@ INSTALLED_APPS = [
     'posts',
 ]
 
-MIDDLEWARE = [
+MIDDLEWARE = [  # Middleware components for processing requests and responses
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -28,9 +28,9 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-ROOT_URLCONF = 'social_media.urls'
+ROOT_URLCONF = 'social_media.urls'  # URL configuration for the project
 
-TEMPLATES = [
+TEMPLATES = [  # Template settings for rendering HTML
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
         'DIRS': [BASE_DIR / 'templates'],
@@ -49,16 +49,16 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'social_media.wsgi.application'
+WSGI_APPLICATION = 'social_media.wsgi.application'  # WSGI application for deployment
 
-DATABASES = {
+DATABASES = {  # Database configuration for the project
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
 
-AUTH_PASSWORD_VALIDATORS = [
+AUTH_PASSWORD_VALIDATORS = [  # Validators for user passwords
     {
         'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
     },
@@ -73,21 +73,21 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'en-us'  # Default language code for the application
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'UTC'  # Default time zone for the application
 
-USE_I18N = True
+USE_I18N = True  # Enable internationalization
 
-USE_TZ = True
+USE_TZ = True  # Enable timezone support
 
-STATIC_URL = 'static/'
-STATICFILES_DIRS = [BASE_DIR / 'static']
+STATIC_URL = 'static/'  # URL for serving static files
+STATICFILES_DIRS = [BASE_DIR / 'static']  # Directories to search for static files
 
-MEDIA_URL = 'media/'
-MEDIA_ROOT = BASE_DIR / 'media'
+MEDIA_URL = 'media/'  # URL for serving media files
+MEDIA_ROOT = BASE_DIR / 'media'  # Directory for storing uploaded media files
 
-LOGIN_REDIRECT_URL = 'profile'
-LOGOUT_REDIRECT_URL = 'home'
+LOGIN_REDIRECT_URL = 'profile'  # Redirect URL after successful login
+LOGOUT_REDIRECT_URL = 'home'  # Redirect URL after logout
 
-DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'  # Default field type for auto-generated primary keys

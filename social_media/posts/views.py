@@ -11,17 +11,17 @@ from django.views.generic import (
 from .models import Post
 from .forms import UserRegisterForm
 
-class PostListView(ListView):
+class PostListView(ListView):  # View for listing all posts
     model = Post
     template_name = 'posts/home.html'
     context_object_name = 'posts'
     ordering = ['-created_at']
     paginate_by = 10
 
-class PostDetailView(DetailView):
+class PostDetailView(DetailView):  # View for displaying a single post's details
     model = Post
 
-class PostCreateView(LoginRequiredMixin, CreateView):
+class PostCreateView(LoginRequiredMixin, CreateView):  # View for creating a new post
     model = Post
     fields = ['content', 'image']
     
@@ -30,7 +30,7 @@ class PostCreateView(LoginRequiredMixin, CreateView):
         messages.success(self.request, 'Post created successfully!')
         return super().form_valid(form)
 
-class PostUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
+class PostUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):  # View for updating an existing post
     model = Post
     fields = ['content', 'image']
     
@@ -42,7 +42,7 @@ class PostUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
         post = self.get_object()
         return self.request.user == post.user
 
-class PostDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
+class PostDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):  # View for deleting a post
     model = Post
     success_url = '/'
     
@@ -50,11 +50,11 @@ class PostDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
         post = self.get_object()
         return self.request.user == post.user
 
-def profile(request):
+def profile(request):  # View for displaying the user's profile and their posts
     posts = Post.objects.filter(user=request.user).order_by('-created_at')
     return render(request, 'posts/profile.html', {'posts': posts})
 
-def register(request):
+def register(request):  # View for user registration
     if request.method == 'POST':
         form = UserRegisterForm(request.POST)
         if form.is_valid():

@@ -1,28 +1,31 @@
-# Social Media Application
-This project is a simple social media application built with Django.
+# Social Media Platform
 
-A simple social media application built with Django by Saim Ahmed Emon (GitHub: emontheprince).
+A simple social media platform built with Django that allows users to create, share, and interact with posts.
 
-## Features 
-This section outlines the main features of the application.
+## Features
+
 - User registration and authentication
-- Create, read, update, and delete posts
-- Global feed showing all posts
-- User profile showing only your posts
-- Image upload support for posts
+- Create, update, and delete posts
+- Post filtering by:
+  - Text content
+  - Media type (text or image)
+  - Username
+  - Date (newest/oldest first)
+- User profile pages
+- Responsive design
+- Image upload support
 
-## Setup Instructions 
-Follow these steps to set up the project locally.
+## Installation
 
 1. Clone the repository:
    ```bash
-   git clone https://github.com/emontheprince/social-media-app.git
-   cd social-media-app
+   git clone https://github.com/yourusername/social-media-platform.git
+   cd social-media-platform
    ```
 
-2. Create and activate virtual environment:
+2. Create a virtual environment:
    ```bash
-   python3 -m venv venv
+   python -m venv venv
    source venv/bin/activate
    ```
 
@@ -36,82 +39,58 @@ Follow these steps to set up the project locally.
    python manage.py migrate
    ```
 
-5. Create superuser:
+5. Create a superuser:
    ```bash
    python manage.py createsuperuser
    ```
 
-6. Run development server:
+6. Run the development server:
    ```bash
    python manage.py runserver
    ```
 
 7. Access the application at `http://localhost:8000`
 
-## API Endpoints 
-This section lists the available API endpoints for authentication and posts.
-
-### Authentication
-- POST /login/ - User login
-- POST /logout/ - User logout
-- POST /register/ - User registration
-
-### Posts
-- GET / - List all posts (global feed)
-- GET /post/<int:pk>/ - Retrieve a specific post
-- POST /post/new/ - Create a new post
-- PUT /post/<int:pk>/update/ - Update a post
-- DELETE /post/<int:pk>/delete/ - Delete a post
-
-### User Profile
-- GET /profile/ - View user's profile and posts
-
-## Testing Credentials 
-Use these credentials to log in to the admin account and sample user accounts.
-- Admin account:
-  - Username: admin
-  - Password: admin
-
-- Sample user accounts:
-  - Username: user1
-  - Password: testpass123
-  - Username: user2
-  - Password: testpass123
-
-## ER Diagram (Text Representation) 
-This section provides a text representation of the database relationships.
+## Project Structure
 
 ```
-+----------------+            +----------------+
-|     User       |            |     Post       |
-+----------------+            +----------------+
-| id             | <--------> | id             |
-| username       |            | user_id        |
-| password       |            | content        |
-| email          |            | image          |
-| first_name     |            | created_at     |
-| last_name      |            | updated_at     |
-| is_staff       |            +----------------+
-| is_active      |
-| date_joined    |
-+----------------+
-
-Relationships:
-- A User can have many Posts (one-to-many)
-- A Post belongs to one User
+social_media/
+├── media/               # Uploaded media files
+├── posts/                # Posts app
+│   ├── migrations/       # Database migrations
+│   ├── templates/        # Post-related templates
+│   ├── __init__.py
+│   ├── admin.py
+│   ├── apps.py
+│   ├── forms.py
+│   ├── models.py
+│   ├── tests.py
+│   ├── urls.py
+│   └── views.py
+├── social_media/          # Project settings
+│   ├── __init__.py
+│   ├── asgi.py
+│   ├── settings.py
+│   ├── urls.py
+│   └── wsgi.py
+├── static/               # Static files
+│   ├── css/
+│   ├── images/
+│   └── js/
+├── templates/            # Base templates
+├── manage.py
+└── requirements.txt
 ```
 
-## Project Details 
-Information about the project, including the developer and technology stack.
-- **Developer**: Saim Ahmed Emon
-- **GitHub**: [emontheprince](https://github.com/emontheprince)
-- **Technology Stack**:
-  - Backend: Django (Python)
-  - Frontend: HTML, CSS, JavaScript
-  - Database: SQLite
-  - Authentication: Django's built-in authentication system
-  - Media Handling: Django's FileField and ImageField
+## Technologies Used
 
-## License 
-This section outlines the licensing information for the project.
+- Python 3
+- Django
+- Bootstrap 5
+- SQLite (development)
+- HTML5/CSS3
+- JavaScript
+
+## License
+
 MIT License

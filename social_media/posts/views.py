@@ -8,6 +8,7 @@ from django.views.generic import (
     UpdateView,
     DeleteView
 )
+from django.db.models import Q
 from .models import Post
 from .forms import UserRegisterForm
 
@@ -15,8 +16,46 @@ class PostListView(ListView):  # View for listing all posts
     model = Post
     template_name = 'posts/home.html'
     context_object_name = 'posts'
-    ordering = ['-created_at']
     paginate_by = 10
+
+    def get_queryset(self):
+        queryset = super().get_queryset()
+        
+        # Search functionality
+        search_query = self.request.GET.get('q')
+        if search_query:
+            queryset = queryset.filter(
+                Q(content__icontains=search_query) |
+                Q(user__username__icontains=search_query)
+            )
+        
+        # Filter by media type
+        media_type = self.request.GET.get('media_type')
+        if media_type == 'text':
+            queryset = queryset.filter(image__exact='')
+        elif media_type == 'image':
+            queryset = queryset.exclude(image__exact='')
+        
+        # Filter by specific username
+        username_filter = self.request.GET.get('username')
+        if username_filter:
+            queryset = queryset.filter(user__username__iexact=username_filter)
+        
+        # Ordering
+        ordering = self.request.GET.get('ordering', '-created_at')
+        if ordering in ['-created_at', 'created_at']:
+            queryset = queryset.order_by(ordering)
+            
+        return queryset
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        # Add current filter values to context
+        context['current_search'] = self.request.GET.get('q', '')
+        context['current_media_type'] = self.request.GET.get('media_type', '')
+        context['current_username_filter'] = self.request.GET.get('username', '')
+        context['current_ordering'] = self.request.GET.get('ordering', '-created_at')
+        return context
 
 class PostDetailView(DetailView):  # View for displaying a single post's details
     model = Post
@@ -51,8 +90,26 @@ class PostDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):  # Vi
         return self.request.user == post.user
 
 def profile(request):  # View for displaying the user's profile and their posts
-    posts = Post.objects.filter(user=request.user).order_by('-created_at')
-    return render(request, 'posts/profile.html', {'posts': posts})
+    posts = Post.objects.filter(user=request.user)
+    
+    # Filter by media type
+    media_type = request.GET.get('media_type')
+    if media_type == 'text':
+        posts = posts.filter(image__exact='')
+    elif media_type == 'image':
+        posts = posts.exclude(image__exact='')
+    
+    # Ordering
+    ordering = request.GET.get('ordering', '-created_at')
+    if ordering in ['-created_at', 'created_at']:
+        posts = posts.order_by(ordering)
+    
+    context = {
+        'posts': posts,
+        'current_media_type': media_type or '',
+        'current_ordering': ordering
+    }
+    return render(request, 'posts/profile.html', context)
 
 def register(request):  # View for user registration
     if request.method == 'POST':
